@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface DevisService {
     List<Devis> getDevis();
+    Devis createDevis(Devis devis);
 
 }

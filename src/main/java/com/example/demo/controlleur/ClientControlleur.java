@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
+
 @RequestMapping("/api/client")
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
@@ -16,7 +18,7 @@ public class ClientControlleur {
         this.clientService = clientService;
     }
 
-    @GetMapping
+    @GetMapping("listeClient")
     public List<Client> getlisteClient(){
         return this.clientService.listeClient();
     }
@@ -29,12 +31,10 @@ public class ClientControlleur {
         } catch (Exception e) {
             return ResponseEntity.status(500).body("Internal Server Error: " + e.getMessage());
         }
-
-//        this.clientService.createClient(client);
     }
 
     @DeleteMapping("delete")
-    public void deleteClient(Long clientId){this.clientService.deleteClient(clientId);}
+    public void deleteClient(UUID clientId){this.clientService.deleteClient(clientId);}
 
     @PostMapping("update")
     public void updateClient(Client client){this.clientService.updateClient(client);}

@@ -16,4 +16,9 @@ public class DevisServiceI implements DevisService {
     public List<Devis> getDevis() {
         return this.devisRepository.findAll();
     }
+
+    @Override
+    public Devis createDevis(Devis devis) {
+        return this.devisRepository.save(devis);
+    }
 }

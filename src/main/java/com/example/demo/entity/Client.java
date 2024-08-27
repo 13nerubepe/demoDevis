@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -17,9 +18,9 @@ import java.util.List;
 })
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
 
-    private Long clientId;
+    private UUID clientId;
     private String image;
     @NotBlank(message = "Le nom est obligatoire")
     private String nom;
@@ -32,15 +33,4 @@ public class Client {
     private String ville;
     private String grade;
 
-    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Devis> devis;
-
-//
-//    // Relation OneToMany avec Devis
-//    @OneToMany(mappedBy = "client")
-//    private List<Devis> devis;
-//
-//    public static Object builder() {
-//        return null;
-//    }
 }

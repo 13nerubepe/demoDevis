@@ -7,12 +7,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ClientServiceI implements ClientService {
     private final ClientRepository clientRepository;
 
     public ClientServiceI(ClientRepository clientRepository) {
+
         this.clientRepository = clientRepository;
     }
 
@@ -23,20 +25,21 @@ public class ClientServiceI implements ClientService {
 
     @Override
     public void createClient(Client client ) {
-        //verifier sil le client quon veux creer existe deja
-//        Optional<Client> existeClient = clientRepository.findById(client.getClientId());
-//        if(existeClient.isPresent()){
-//            //CLIENT EXISTE
-//            throw new RuntimeException("Client already exists with email: " + client.getClientId());        }
-//        else{
-//            this.clientRepository.save(client);
-//        }
+        //verifier sil le client quon veux creer que son email et son numero existe deja
+        if (clientRepository.existsByEmail(client.getEmail())) {
+            throw new IllegalArgumentException("L'email est déjà utilisé.");
+        }
+
+        // Vérifier si le numéro de téléphone existe déjà
+        if (clientRepository.existsByPhone(client.getPhone())) {
+            throw new IllegalArgumentException("Le numéro de téléphone est déjà utilisé.");
+        }
         this.clientRepository.save(client);
-//        this.clientRepository.save(devis);
+
     }
 
     @Override
-    public void deleteClient(Long clientId) {
+    public void deleteClient(UUID clientId) {
         this.clientRepository.deleteById(clientId);
     }
 
@@ -47,7 +50,7 @@ public class ClientServiceI implements ClientService {
     }
 
     @Override
-    public Client getClient(Long clientId) {
+    public Client getClient(UUID clientId) {
         return null;
     }
 

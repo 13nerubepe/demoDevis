@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class ProductServiceI implements ProductService {
@@ -19,10 +20,10 @@ public class ProductServiceI implements ProductService {
     @Override
     public void createProduct(Product product) {
         //verify si le product existe deja
-    if(productRepository.findByProductName(product.getProductName()).isPresent()){
+        if(productRepository.findByProductName(product.getProductName()).isPresent()){
 //        throw new IllegalArgumentException("Product with name " + productName + " already exists.");
-    }
-       this.productRepository.save(product);
+        }
+        this.productRepository.save(product);
     }
 
     @Override
@@ -31,13 +32,13 @@ public class ProductServiceI implements ProductService {
     }
 
     @Override
-    public void deleteProduct(Long productId) {
+    public void deleteProduct(UUID productId) {
         this.productRepository.deleteById(productId);
 
     }
-//nest pas encore verify
+    //nest pas encore verify
     @Override
-    public Product getProduct(Long productId) {
+    public Product getProduct(UUID productId) {
 //        Optional<Product> product = this.productRepository.findById(productId);
 //        return product.orElseThrow(() -> new RuntimeException("Produit non trouvé pour l'ID : " + productId));
 //

@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("product")
 @RestController
@@ -26,11 +27,11 @@ public class ProductControlleur {
         return  this.productService.getListProduct();
     }
     @DeleteMapping("deleteProduct")
-    public void deleteProduct(Long productId){
+    public void deleteProduct(UUID productId){
         this.productService.deleteProduct(productId);
     }
     @GetMapping("getProduct")
-    public void getProduct(Long productId){
+    public void getProduct(UUID productId){
         this.productService.getProduct(productId);
     }
 

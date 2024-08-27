@@ -7,10 +7,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface ClientRepository extends JpaRepository<Client, UUID> {
     List<Client> findAllByNom(String nom);
+
+    boolean existsByEmail(String email);
+
+    boolean existsByPhone(String phone);
 
 //    @Override
 //    Optional<Client> findById(Long aLong);
