@@ -21,13 +21,24 @@ public class Devis {
     private String cassier;
 
 
-    @Column(name = "clientId", nullable = false)
-    private Long clientId;
+//    @Column(name = "clientId", nullable = false)
+//    private UUID clientId;
+//
+//    @ElementCollection
+//    @CollectionTable(name = "devis_product", joinColumns = @JoinColumn(name = "devisId"))
+//    @Column(name = "productId")
+//    private List<UUID> productIds = new ArrayList<>();
+@ManyToOne
+@JoinColumn(name = "clientId", nullable = false)
+private Client client;
 
-    @ElementCollection
-    @CollectionTable(name = "devis_product", joinColumns = @JoinColumn(name = "devisId"))
-    @Column(name = "productId")
-    private List<Long> productIds = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "devis_product",
+            joinColumns = @JoinColumn(name = "devisId"),
+            inverseJoinColumns = @JoinColumn(name = "productId")
+    )
+    private List<Product> products = new ArrayList<>();
 
 }
 

@@ -9,6 +9,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration
 
 public class SecutityConfigurationApplication {
+
 //    @Bean
 //    public SecurityFilterChain securityFilterChain(HttpSecurity httpsecu) throws Exception {
 //
@@ -35,14 +36,25 @@ public class SecutityConfigurationApplication {
     @Bean
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
-            @SuppressWarnings("null")
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowCredentials(true)
+                        .allowedHeaders("*")
                         .allowedMethods(HttpMethod.OPTIONS.name(), HttpMethod.HEAD.name(), HttpMethod.DELETE.name(), HttpMethod.POST.name(), HttpMethod.GET.name())
                         .allowedOrigins("http://localhost:4200");
             }
         };
+
+//        return new WebMvcConfigurer() {
+//            @Override
+//            public void addCorsMappings(CorsRegistry registry) {
+//                registry.addMapping("/**")
+//                        .allowedOrigins("http://localhost:4200") // Autoriser les requêtes depuis Angular
+//                        .allowedMethods("*") // Autoriser toutes les méthodes HTTP
+//                        .allowedHeaders("*") // Autoriser tous les en-têtes
+//                        .allowCredentials(true); // Autoriser les cookies et les identifiants
+//            }
+//        };
     }
 }

@@ -1,6 +1,7 @@
 package com.example.demo.controlleur;
 
 import com.example.demo.entity.Client;
+import com.example.demo.entity.DTO.DevisCreateDto;
 import com.example.demo.entity.Devis;
 import com.example.demo.entity.Product;
 import com.example.demo.sevice.definir.ClientService;
@@ -12,23 +13,24 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-@RequestMapping("devis")
+@RequestMapping("/devis")
 @RestController
 @AllArgsConstructor
 public class DevisControlleur {
 
     private final DevisService devisService;
 
-    @GetMapping("listeDevis")
-    public List<Devis> getlisteClient(){
-        return this.devisService.getDevis();
+    @GetMapping("/listeDevis")
+    public ResponseEntity<List<Devis>> getListeDevis(){
+        List<Devis> devisList = devisService.getDevis();
+        return ResponseEntity.ok(devisList);
     }
 
-    @DeleteMapping("deleteDevis")
+    @DeleteMapping("/deleteDevis")
     public void deleteDevis(Devis devisId){}
 
-    @PostMapping("createDevis")
-    public ResponseEntity createDevis(@RequestBody Devis devis){
+    @PostMapping("/reateDevis")
+    public ResponseEntity createDevis(@RequestBody DevisCreateDto devis){
         devisService.createDevis(devis);
         return ResponseEntity.ok("devis creé");
     }

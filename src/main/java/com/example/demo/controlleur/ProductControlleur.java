@@ -10,27 +10,27 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("product")
+@RequestMapping("/product")
 @RestController
 @AllArgsConstructor
 public class ProductControlleur {
     private final ProductService productService;
 
 
-    @PostMapping("createProduct")
+    @PostMapping("/createProduct")
     public ResponseEntity createProduct(Product product){
         this.productService.createProduct(product);
         return ResponseEntity.ok("Product created successfully");
     }
-    @GetMapping("listeProduct")
+    @GetMapping("/listeProduct")
     public List<Product> listeProduct(){
         return  this.productService.getListProduct();
     }
-    @DeleteMapping("deleteProduct")
+    @DeleteMapping("/eleteProduct")
     public void deleteProduct(UUID productId){
         this.productService.deleteProduct(productId);
     }
-    @GetMapping("getProduct")
+    @GetMapping("/getProduct")
     public void getProduct(UUID productId){
         this.productService.getProduct(productId);
     }
