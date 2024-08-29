@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
-@RequestMapping("/api/client")
+@RequestMapping("/client")
 @RestController
 //@CrossOrigin(origins = "http://localhost:4200")
 public class ClientControlleur {
@@ -18,12 +18,12 @@ public class ClientControlleur {
         this.clientService = clientService;
     }
 
-    @GetMapping("listeClient")
+    @GetMapping("/listeClient")
     public List<Client> getlisteClient(){
         return this.clientService.listeClient();
     }
 
-    @PostMapping("create")
+    @PostMapping("/createClient")
     public ResponseEntity createClient(Client client) {
         try {
             clientService.createClient(client);
@@ -34,7 +34,7 @@ public class ClientControlleur {
     }
 
     @DeleteMapping("delete")
-    public void deleteClient(UUID clientId){this.clientService.deleteClient(clientId);}
+    public void deleteClient(String clientId){this.clientService.deleteClient(clientId);}
 
     @PostMapping("update")
     public void updateClient(Client client){this.clientService.updateClient(client);}

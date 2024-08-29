@@ -12,8 +12,8 @@ import java.util.UUID;
 @Data
 public class Devis {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID devisId;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String devisId;
     private int totalTHt;
     private boolean reduction;
     private int totalTva;

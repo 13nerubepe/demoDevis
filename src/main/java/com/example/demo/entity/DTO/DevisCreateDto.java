@@ -4,12 +4,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
-public record DevisCreateDto(UUID devisId,
+public record DevisCreateDto(String devisId,
                              int totalTHt,
                              boolean reduction,
                              int totalTva,
                              Date date,
                              String cassier,
-                             UUID clientId,
-                             List<UUID> productIds) {
+                             String clientId,
+                             List<String> productIds) {
 }

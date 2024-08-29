@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface DevisRepository  extends JpaRepository<Devis, UUID> {
+public interface DevisRepository  extends JpaRepository<Devis, String> {
 }

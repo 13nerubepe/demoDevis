@@ -18,9 +18,9 @@ import java.util.UUID;
 })
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.UUID)
 
-    private UUID clientId;
+    private String clientId;
     private String image;
     @NotBlank(message = "Le nom est obligatoire")
     private String nom;

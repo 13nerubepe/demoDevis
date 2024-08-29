@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 //@RepositoryRestResource
-public interface ProductRepository extends JpaRepository<Product, UUID> {
+public interface ProductRepository extends JpaRepository<Product, String> {
     Optional<Product> findByProductName(String productName);
 }

@@ -39,9 +39,14 @@ public class ClientServiceI implements ClientService {
     }
 
     @Override
-    public void deleteClient(UUID clientId) {
-        this.clientRepository.deleteById(clientId);
+    public void deleteClient(String clientId) {
+
     }
+
+//    @Override
+//    public void deleteClient(String clientId) {
+//        this.clientRepository.deleteById(clientId);
+//    }
 
     @Override
     public void updateClient(Client client) {
@@ -50,7 +55,7 @@ public class ClientServiceI implements ClientService {
     }
 
     @Override
-    public Client getClient(UUID clientId) {
+    public Client getClient(String clientId) {
         return null;
     }
 

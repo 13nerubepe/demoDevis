@@ -29,7 +29,7 @@ public class DevisControlleur {
     @DeleteMapping("/deleteDevis")
     public void deleteDevis(Devis devisId){}
 
-    @PostMapping("/reateDevis")
+    @PostMapping("/createDevis")
     public ResponseEntity createDevis(@RequestBody DevisCreateDto devis){
         devisService.createDevis(devis);
         return ResponseEntity.ok("devis creé");

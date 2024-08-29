@@ -37,7 +37,7 @@ public Devis createDevis(DevisCreateDto devisCreateDto) {
 
     // Créer un nouvel objet Devis
     Devis devis = new Devis();
-    devis.setDevisId(devisCreateDto.devisId());
+    devis.setDevisId(devisCreateDto.devisId().toString());
     devis.setTotalTHt(devisCreateDto.totalTHt());
     devis.setReduction(devisCreateDto.reduction());
     devis.setTotalTva(devisCreateDto.totalTva());
