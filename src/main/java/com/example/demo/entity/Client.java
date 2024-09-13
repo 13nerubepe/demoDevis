@@ -20,7 +20,7 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
 
-    private String clientId;
+    private UUID clientId;
     private String image;
     @NotBlank(message = "Le nom est obligatoire")
     private String nom;

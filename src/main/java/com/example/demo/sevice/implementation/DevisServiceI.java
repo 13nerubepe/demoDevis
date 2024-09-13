@@ -11,6 +11,8 @@ import com.example.demo.sevice.definir.DevisService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 @Service
 @AllArgsConstructor
@@ -37,7 +39,7 @@ public Devis createDevis(DevisCreateDto devisCreateDto) {
 
     // Créer un nouvel objet Devis
     Devis devis = new Devis();
-    devis.setDevisId(devisCreateDto.devisId().toString());
+    devis.setDevisId(devisCreateDto.devisId());
     devis.setTotalTHt(devisCreateDto.totalTHt());
     devis.setReduction(devisCreateDto.reduction());
     devis.setTotalTva(devisCreateDto.totalTva());
@@ -46,6 +48,17 @@ public Devis createDevis(DevisCreateDto devisCreateDto) {
     devis.setClient(client);
     devis.setProducts(products);
 
-    return devisRepository.save(devis);
+
+        // Convertir clientId de String à UUID
+//        Client client = clientRepository.findById(devisCreateDto.clientId).orElseThrow(() -> new ResourceNotFoundException("Client non trouvé"));
+//
+//        devis.setClient(client);
+//
+//        // Convertir la liste des IDs de produits en objets Product
+//        List<Product> products = productRepository.findAllById(devisCreateDto.productIds);
+//        devis.setProducts(products);
+
+
+        return devisRepository.save(devis);
 }
 }

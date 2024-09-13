@@ -3,6 +3,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,11 +14,11 @@ import java.util.UUID;
 public class Devis {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String devisId;
+    private UUID devisId;
     private int totalTHt;
     private boolean reduction;
     private int totalTva;
-    private Date date;
+    private LocalDateTime date;
     private String cassier;
 
 
