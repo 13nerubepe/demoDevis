@@ -28,7 +28,7 @@ public class Client {
     @Email(message = "L'email doit être valide")
     private String email;
     @NotBlank(message = "Le numero de telephone est obligatoire")
-    private String phone ;
+    private String phone;
     private String address;
     private String ville;
     private String grade;

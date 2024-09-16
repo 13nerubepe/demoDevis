@@ -10,9 +10,9 @@ public interface ClientService {
 
     void createClient(Client client);
 
-    void deleteClient(String clientId);
+    void deleteClient(UUID clientId);
 
     void updateClient(Client client);
 
-    Client getClient(String clientId);
+    Client getClient(UUID clientId);
 }

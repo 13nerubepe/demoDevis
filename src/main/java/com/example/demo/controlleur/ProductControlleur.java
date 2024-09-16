@@ -26,12 +26,12 @@ public class ProductControlleur {
     public List<Product> listeProduct(){
         return  this.productService.getListProduct();
     }
-    @DeleteMapping("/eleteProduct")
-    public void deleteProduct(String productId){
+    @DeleteMapping("/deleteProduct")
+    public void deleteProduct(UUID productId){
         this.productService.deleteProduct(productId);
     }
     @GetMapping("/getProduct")
-    public void getProduct(String productId){
+    public void getProduct(UUID productId){
         this.productService.getProduct(productId);
     }
 

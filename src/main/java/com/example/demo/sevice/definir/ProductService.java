@@ -8,6 +8,6 @@ import java.util.UUID;
 public interface ProductService {
     void createProduct(Product product);
     List<Product> getListProduct();
-    void deleteProduct(String productId);
-    Product getProduct(String productId);
+    void deleteProduct(UUID productId);
+    Product getProduct(UUID productId);
 }

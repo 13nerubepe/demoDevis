@@ -8,10 +8,6 @@ import java.util.List;
 public interface DevisService {
     List<Devis> getDevis();
 
-    //    @Override
-    //    public Devis createDevis(Devis devis) {
-    //        return this.devisRepository.save(devis);
-    //    }
     Devis createDevis(DevisCreateDto devisCreateDto);
 //    Devis createDevis(Devis devis);
 

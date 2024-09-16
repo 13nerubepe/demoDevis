@@ -34,7 +34,7 @@ public class ClientControlleur {
     }
 
     @DeleteMapping("delete")
-    public void deleteClient(String clientId){this.clientService.deleteClient(clientId);}
+    public void deleteClient(UUID clientId){this.clientService.deleteClient(clientId);}
 
     @PostMapping("update")
     public void updateClient(Client client){this.clientService.updateClient(client);}

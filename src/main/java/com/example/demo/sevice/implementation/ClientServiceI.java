@@ -29,17 +29,15 @@ public class ClientServiceI implements ClientService {
         if (clientRepository.existsByEmail(client.getEmail())) {
             throw new IllegalArgumentException("L'email est déjà utilisé.");
         }
-
         // Vérifier si le numéro de téléphone existe déjà
         if (clientRepository.existsByPhone(client.getPhone())) {
             throw new IllegalArgumentException("Le numéro de téléphone est déjà utilisé.");
         }
         this.clientRepository.save(client);
-
     }
 
     @Override
-    public void deleteClient(String clientId) {
+    public void deleteClient(UUID clientId) {
 
     }
 
@@ -55,7 +53,7 @@ public class ClientServiceI implements ClientService {
     }
 
     @Override
-    public Client getClient(String clientId) {
+    public Client getClient(UUID clientId) {
         return null;
     }
 

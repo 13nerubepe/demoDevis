@@ -32,13 +32,13 @@ public class ProductServiceI implements ProductService {
     }
 
     @Override
-    public void deleteProduct(String productId) {
+    public void deleteProduct(UUID productId) {
         this.productRepository.deleteById(productId);
 
     }
     //nest pas encore verify
     @Override
-    public Product getProduct(String productId) {
+    public Product getProduct(UUID productId) {
 //        Optional<Product> product = this.productRepository.findById(productId);
 //        return product.orElseThrow(() -> new RuntimeException("Produit non trouvé pour l'ID : " + productId));
 //

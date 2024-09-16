@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.List;
+import java.util.UUID;
+
 @Service
 @AllArgsConstructor
 public class DevisServiceI implements DevisService {
@@ -32,32 +34,36 @@ public class DevisServiceI implements DevisService {
 //    }
     @Override
 public Devis createDevis(DevisCreateDto devisCreateDto) {
+
+        // Vérification de la nullité de "cassier"
+        if (devisCreateDto.cassier() == null || devisCreateDto.cassier().isEmpty()) {
+            throw new RuntimeException("Cassier cannot be null or empty");
+        }
+
+
     // Récupérer les entités client et produits par leurs ID
-    Client client = clientRepository.findById(devisCreateDto.clientId())
-            .orElseThrow(() -> new RuntimeException("Client not found"));
+//        UUID clientId = UUID.fromString(devisCreateDto.clientId());
+//    Client client = clientRepository.findById(clientId)
+//            .orElseThrow(() -> new RuntimeException("Client not found"));
+
+        Client client = clientRepository.findById(devisCreateDto.clientId())
+                .orElseThrow(() -> new RuntimeException("Client not found"));
+
     List<Product> products = productRepository.findAllById(devisCreateDto.productIds());
 
     // Créer un nouvel objet Devis
     Devis devis = new Devis();
-    devis.setDevisId(devisCreateDto.devisId());
+//    convertir le string en UUID
+//    devis.setDevisId(UUID.fromString(devisCreateDto.devisId()));
+        devis.setDevisId(devisCreateDto.devisId());
+
     devis.setTotalTHt(devisCreateDto.totalTHt());
     devis.setReduction(devisCreateDto.reduction());
     devis.setTotalTva(devisCreateDto.totalTva());
     devis.setDate(devisCreateDto.date());
-    devis.setCassier(devisCreateDto.cassier());
+    devis.setCassier(devisCreateDto.cassier());  // Assurez-vous que ce champ est non nul
     devis.setClient(client);
     devis.setProducts(products);
-
-
-        // Convertir clientId de String à UUID
-//        Client client = clientRepository.findById(devisCreateDto.clientId).orElseThrow(() -> new ResourceNotFoundException("Client non trouvé"));
-//
-//        devis.setClient(client);
-//
-//        // Convertir la liste des IDs de produits en objets Product
-//        List<Product> products = productRepository.findAllById(devisCreateDto.productIds);
-//        devis.setProducts(products);
-
 
         return devisRepository.save(devis);
 }
