@@ -21,8 +21,6 @@ public class Product {
     private UUID productId;
     private String productName;
     private String image;
-    private Long qteenstock;
-    private String unite;
     private String description;
     private String categories;
     private Long prixUnitaire;
@@ -30,5 +28,7 @@ public class Product {
     private Long tva;
     private Long totalTva;
     private Long totalHT;
+    private Long qteenstock;
+    private String unite;
 
 }
