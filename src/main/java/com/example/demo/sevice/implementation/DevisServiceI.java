@@ -13,8 +13,10 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -67,4 +69,32 @@ public Devis createDevis(DevisCreateDto devisCreateDto) {
 
         return devisRepository.save(devis);
 }
+
+//    public List<DevisCreateDto> getAllDevisWithDetails() {
+//        List<Devis> devisList = devisRepository.findAll();
+//        List<DevisCreateDto> combinedDtos = new ArrayList<>();
+//
+//        for (Devis devis : devisList) {
+//            DevisCreateDto dto = new DevisCreateDto();
+//            dto.setDevisId(devisCreateDto.getdevisId());
+//            dto.setTotalTHt(devis.getTotalTHt());
+//            dto.setReduction(devis.isReduction());
+//            dto.setTotalTva(devis.getTotalTva());
+//            dto.setDate(devis.getDate());
+//            dto.setCassier(devis.getCassier());
+//
+//            // Récupérer le nom du client
+//            dto.setClientName(devis.getClient().getNom());
+//
+//            // Récupérer les noms des produits
+//            List<String> productNames = devis.getProducts().stream()
+//                    .map(Product::getProductName)
+//                    .collect(Collectors.toList());
+//            dto.setProductNames(productNames);
+//
+//            combinedDtos.add(dto);
+//        }
+//
+//        return combinedDtos;
+//    }
 }

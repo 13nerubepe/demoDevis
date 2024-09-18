@@ -29,6 +29,8 @@ public class Devis {
 //    @CollectionTable(name = "devis_product", joinColumns = @JoinColumn(name = "devisId"))
 //    @Column(name = "productId")
 //    private List<UUID> productIds = new ArrayList<>();
+
+
 @ManyToOne
 @JoinColumn(name = "clientId", nullable = false)
 private Client client;

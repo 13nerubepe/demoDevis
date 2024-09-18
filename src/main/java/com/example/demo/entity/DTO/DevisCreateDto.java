@@ -12,7 +12,8 @@ public record DevisCreateDto(
                              int totalTva,
                              LocalDateTime date,
                              String cassier,
-                             UUID clientId,
+                            UUID clientId,
+//                             List<UUID> clientId,
                              List<UUID> productIds
 ) {
 }
