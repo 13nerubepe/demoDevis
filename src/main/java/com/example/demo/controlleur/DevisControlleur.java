@@ -10,7 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RequestMapping("/devis")
@@ -31,8 +33,10 @@ public class DevisControlleur {
 
     @PostMapping("/createDevis")
     public ResponseEntity createDevis(@RequestBody DevisCreateDto devis){
-        devisService.createDevis(devis);
-        return ResponseEntity.ok("devis creé");
+        Devis devis1 = devisService.createDevis(devis);
+        Map<String, String> response = new HashMap<>();
+        response.put("data", "devis creé");
+        return ResponseEntity.ok(response);
     }
 //@PostMapping
 //public ResponseEntity<Devis> createDevis(@RequestBody DevisRequest devisRequest) {
