@@ -3,7 +3,7 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.*;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,6 +16,10 @@ import java.util.UUID;
         @UniqueConstraint(columnNames = "phone"),
         @UniqueConstraint(columnNames = "nom")
 })
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+@ToString
 public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)

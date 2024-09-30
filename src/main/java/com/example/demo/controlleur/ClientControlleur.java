@@ -1,6 +1,7 @@
 package com.example.demo.controlleur;
 
 import com.example.demo.entity.Client;
+import com.example.demo.entity.DTO.ClientCreateDto;
 import com.example.demo.sevice.definir.ClientService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,8 @@ public class ClientControlleur {
     }
 
     @PostMapping("/createClient")
-    public ResponseEntity createClient(Client client) {
+    public ResponseEntity createClient(@RequestBody ClientCreateDto client) {
+        System.out.println(client);
         try {
             clientService.createClient(client);
             return ResponseEntity.ok("Client created successfully");
@@ -33,8 +35,8 @@ public class ClientControlleur {
         }
     }
 
-    @DeleteMapping("delete")
-    public void deleteClient(UUID clientId){this.clientService.deleteClient(clientId);}
+    @DeleteMapping("delete/{clientId}")
+    public void deleteClient(@PathVariable UUID clientId){this.clientService.deleteClient(clientId);}
 
     @PostMapping("update")
     public void updateClient(Client client){this.clientService.updateClient(client);}

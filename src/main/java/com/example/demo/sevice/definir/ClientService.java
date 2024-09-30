@@ -1,6 +1,7 @@
 package com.example.demo.sevice.definir;
 
 import com.example.demo.entity.Client;
+import com.example.demo.entity.DTO.ClientCreateDto;
 
 import java.util.List;
 import java.util.UUID;
@@ -8,7 +9,7 @@ import java.util.UUID;
 public interface ClientService {
     List<Client> listeClient();
 
-    void createClient(Client client);
+    void createClient(ClientCreateDto client);
 
     void deleteClient(UUID clientId);
 

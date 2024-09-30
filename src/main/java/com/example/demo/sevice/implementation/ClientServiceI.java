@@ -1,6 +1,7 @@
 package com.example.demo.sevice.implementation;
 
 import com.example.demo.entity.Client;
+import com.example.demo.entity.DTO.ClientCreateDto;
 import com.example.demo.respository.ClientRepository;
 import com.example.demo.sevice.definir.ClientService;
 import org.springframework.stereotype.Service;
@@ -24,16 +25,24 @@ public class ClientServiceI implements ClientService {
     }
 
     @Override
-    public void createClient(Client client ) {
+    public void createClient(ClientCreateDto clientDto ) {
         //verifier sil le client quon veux creer que son email et son numero existe deja
-        if (clientRepository.existsByEmail(client.getEmail())) {
+        if (clientRepository.existsByEmail(clientDto.getEmail())) {
             throw new IllegalArgumentException("L'email est déjà utilisé.");
         }
         // Vérifier si le numéro de téléphone existe déjà
-        if (clientRepository.existsByPhone(client.getPhone())) {
+        if (clientRepository.existsByPhone(clientDto.getPhone())) {
             throw new IllegalArgumentException("Le numéro de téléphone est déjà utilisé.");
         }
-        this.clientRepository.save(client);
+        Client newClient = Client.builder()
+                .nom(clientDto.getNom())
+                .phone(clientDto.getPhone())
+                .address(clientDto.getAddress())
+                .email(clientDto.getEmail())
+                .grade(clientDto.getGrade())
+                .ville(clientDto.getVille())
+                .build();
+        this.clientRepository.save(newClient);
     }
 
     @Override
