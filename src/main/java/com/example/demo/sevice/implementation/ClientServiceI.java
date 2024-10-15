@@ -42,6 +42,7 @@ public class ClientServiceI implements ClientService {
                 .grade(clientDto.getGrade())
                 .ville(clientDto.getVille())
                 .build();
+        clientRepository.findAll().stream().map(client -> ClientCreateDto.toDto(client));
         this.clientRepository.save(newClient);
     }
 

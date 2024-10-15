@@ -2,11 +2,13 @@ package com.example.demo.controlleur;
 
 import com.example.demo.entity.Client;
 import com.example.demo.entity.DTO.DevisCreateDto;
+import com.example.demo.entity.DTO.DevisPaginationDto;
 import com.example.demo.entity.Devis;
 import com.example.demo.entity.Product;
 import com.example.demo.sevice.definir.ClientService;
 import com.example.demo.sevice.definir.DevisService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,10 +24,19 @@ public class DevisControlleur {
 
     private final DevisService devisService;
 
-    @GetMapping("/listeDevis")
-    public ResponseEntity<List<Devis>> getListeDevis(){
-        List<Devis> devisList = devisService.getDevis();
-        return ResponseEntity.ok(devisList);
+//    @GetMapping("/listeDevis")
+//    public ResponseEntity<Page<Devis>> getListeDevis(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "4") int size){
+//        Page<Devis> devis = devisService.getDevis(page, size);
+//        return ResponseEntity.ok(devis);
+//    }
+
+    @GetMapping("/pagination")
+    public ResponseEntity<DevisPaginationDto> getDevisPaginated(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+
+        DevisPaginationDto result = devisService.getDevis(page, size);
+        return ResponseEntity.ok(result);
     }
 
     @DeleteMapping("/deleteDevis")

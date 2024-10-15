@@ -2,6 +2,7 @@ package com.example.demo.sevice.implementation;
 
 import com.example.demo.entity.Client;
 import com.example.demo.entity.DTO.DevisCreateDto;
+import com.example.demo.entity.DTO.DevisPaginationDto;
 import com.example.demo.entity.Devis;
 import com.example.demo.entity.Product;
 import com.example.demo.respository.ClientRepository;
@@ -9,6 +10,9 @@ import com.example.demo.respository.DevisRepository;
 import com.example.demo.respository.ProductRepository;
 import com.example.demo.sevice.definir.DevisService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,14 +29,53 @@ public class DevisServiceI implements DevisService {
     private final DevisRepository devisRepository;
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
+//    @Override
+//    public Page<Devis> getDevis(int page, int size) {
+//       return this.devisRepository.findAll(PageRequest.of(page, size));
+//    }
+
+
     @Override
-    public List<Devis> getDevis() {
-        return this.devisRepository.findAll();
+    public DevisPaginationDto getDevis(int page, int size) {
+        Page<Devis> devisPage = this.devisRepository.findAll(PageRequest.of(page, size));
+
+        return new DevisPaginationDto(
+                devisPage.getContent(),
+                devisPage.getTotalPages(),
+                devisPage.getTotalElements(),
+                devisPage.getNumber(),
+                devisPage.isLast(),
+                devisPage.isFirst()
+        );
+
     }
 
 //    @Override
-//    public Devis createDevis(Devis devis) {
-//        return this.devisRepository.save(devis);
+//    public DevisPaginationDto getDevis(int page, int size) {
+//        // Validation des paramètres
+//        if (page < 0) {
+//            throw new IllegalArgumentException("Le numéro de page ne peut pas être négatif.");
+//        }
+//        if (size <= 0) {
+//            throw new IllegalArgumentException("La taille de la page doit être supérieure à zéro.");
+//        }
+//
+//        // Création d'un objet Pageable pour la pagination
+//        Pageable pageable = PageRequest.of(page, size);
+//
+//        // Récupération de la page de devis
+//        Page<Devis> devisPage = devisRepository.findAll(pageable);
+//
+//        // Création du DTO de pagination
+//        DevisPaginationDto dto = new DevisPaginationDto();
+//        dto.setContent(devisPage.getContent());
+//        dto.setTotalPages(devisPage.getTotalPages());
+//        dto.setTotalElements(devisPage.getTotalElements());
+//        dto.setPageNumber(devisPage.getNumber());
+//        dto.setLast(devisPage.isLast());
+//        dto.setFirst(devisPage.isFirst());  // Ajout d'informations sur la première page
+//
+//        return dto;
 //    }
     @Override
 public Devis createDevis(DevisCreateDto devisCreateDto) {
