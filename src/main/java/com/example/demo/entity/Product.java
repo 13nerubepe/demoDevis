@@ -22,10 +22,14 @@ public class Product {
     private String productName;
     private String image;
     private String libele;
+    private String unite;
     private String description;
     private String categories;
     private Long prixUnitaire;
     private Long qteenstock;
-    private String unite;
+    private Long qte;
+    private Long tva;
+    private Long totalTva;
+    private Long totalHT;
 
 }
