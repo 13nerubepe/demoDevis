@@ -47,9 +47,19 @@ public class ClientServiceI implements ClientService {
     }
 
     @Override
-    public void deleteClient(UUID clientId) {
+    public boolean deleteClient(UUID clientId) {
+
+            // Vérifie si le client existe
+            if (clientRepository.existsById(clientId)) {
+                // Supprime le client
+                clientRepository.deleteById(clientId);
+                return true;  // Retourne true si la suppression a réussi
+            }
+           return false;  // Retourne false si le client n'existe pas
+
 
     }
+
 
 //    @Override
 //    public void deleteClient(String clientId) {

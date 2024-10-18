@@ -11,7 +11,7 @@ public interface ClientService {
 
     void createClient(ClientCreateDto client);
 
-    void deleteClient(UUID clientId);
+    boolean deleteClient(UUID clientId);
 
     void updateClient(Client client);
 

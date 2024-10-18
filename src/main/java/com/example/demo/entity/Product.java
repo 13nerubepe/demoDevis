@@ -31,5 +31,4 @@ public class Product {
     private Long tva;
     private Long totalTva;
     private Long totalHT;
-
 }
