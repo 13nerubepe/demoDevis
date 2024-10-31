@@ -136,8 +136,6 @@ public class DevisServiceI implements DevisService {
         return devisRepository.save(saveDevis);
     };
 
-
-
 //    public List<DevisCreateDto> getAllDevisWithDetails() {
 //        List<Devis> devisList = devisRepository.findAll();
 //        List<DevisCreateDto> combinedDtos = new ArrayList<>();
