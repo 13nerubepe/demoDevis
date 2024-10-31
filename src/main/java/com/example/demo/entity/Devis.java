@@ -35,13 +35,15 @@ public class Devis {
 @JoinColumn(name = "clientId", nullable = false)
 private Client client;
 
-    @ManyToMany
-    @JoinTable(
-            name = "devis_product",
-            joinColumns = @JoinColumn(name = "devisId"),
-            inverseJoinColumns = @JoinColumn(name = "productId")
-    )
-    private List<Product> products = new ArrayList<>();
+//    @ManyToMany
+//    @JoinTable(
+//            name = "devis_product",
+//            joinColumns = @JoinColumn(name = "devisId"),
+//            inverseJoinColumns = @JoinColumn(name = "productId")
+//    )
+//    private List<Product> products = new ArrayList<>();
 
+    @OneToMany
+    private List<ProduitDevis> produitDevis = new ArrayList<>();
 }
 

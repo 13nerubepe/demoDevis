@@ -3,17 +3,22 @@ package com.example.demo.sevice.implementation;
 import com.example.demo.entity.Client;
 import com.example.demo.entity.DTO.DevisCreateDto;
 import com.example.demo.entity.DTO.DevisPaginationDto;
+import com.example.demo.entity.DTO.ProduitDevisDto;
 import com.example.demo.entity.Devis;
 import com.example.demo.entity.Product;
+import com.example.demo.entity.ProduitDevis;
 import com.example.demo.respository.ClientRepository;
 import com.example.demo.respository.DevisRepository;
 import com.example.demo.respository.ProductRepository;
+import com.example.demo.respository.ProduitDevisRepository;
 import com.example.demo.sevice.definir.DevisService;
+import com.example.demo.sevice.definir.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -29,6 +34,7 @@ public class DevisServiceI implements DevisService {
     private final DevisRepository devisRepository;
     private final ClientRepository clientRepository;
     private final ProductRepository productRepository;
+    private final ProduitDevisRepository produitDevisRepository;
 //    @Override
 //    public Page<Devis> getDevis(int page, int size) {
 //       return this.devisRepository.findAll(PageRequest.of(page, size));
@@ -38,7 +44,6 @@ public class DevisServiceI implements DevisService {
     @Override
     public DevisPaginationDto getDevis(int page, int size) {
         Page<Devis> devisPage = this.devisRepository.findAll(PageRequest.of(page, size));
-
         return new DevisPaginationDto(
                 devisPage.getContent(),
                 devisPage.getTotalPages(),
@@ -78,40 +83,60 @@ public class DevisServiceI implements DevisService {
 //        return dto;
 //    }
     @Override
-public Devis createDevis(DevisCreateDto devisCreateDto) {
-
+    @Transactional
+    public Devis createDevis( DevisCreateDto devisCreateDto) {
         // Vérification de la nullité de "cassier"
         if (devisCreateDto.cassier() == null || devisCreateDto.cassier().isEmpty()) {
-            throw new RuntimeException("Cassier cannot be null or empty");
+           throw new RuntimeException("Cassier cannot be null or empty");
         }
 
-
-    // Récupérer les entités client et produits par leurs ID
-//        UUID clientId = UUID.fromString(devisCreateDto.clientId());
-//    Client client = clientRepository.findById(clientId)
-//            .orElseThrow(() -> new RuntimeException("Client not found"));
-
+        // Récupérer les entités client par leurs ID
         Client client = clientRepository.findById(devisCreateDto.clientId())
-                .orElseThrow(() -> new RuntimeException("Client not found"));
+               .orElseThrow(() -> new RuntimeException("Client not found"));
 
-    List<Product> products = productRepository.findAllById(devisCreateDto.productIds());
+//        creer une liste de vide des produitdevis selectionné pr lutilisateur
+        List<ProduitDevis> produitDevis = new ArrayList<>();
 
-    // Créer un nouvel objet Devis
-    Devis devis = new Devis();
-//    convertir le string en UUID
-//    devis.setDevisId(UUID.fromString(devisCreateDto.devisId()));
-        devis.setDevisId(devisCreateDto.devisId());
 
-    devis.setTotalTHt(devisCreateDto.totalTHt());
-    devis.setReduction(devisCreateDto.reduction());
-    devis.setTotalTva(devisCreateDto.totalTva());
-    devis.setDate(devisCreateDto.date());
-    devis.setCassier(devisCreateDto.cassier());  // Assurez-vous que ce champ est non nul
-    devis.setClient(client);
-    devis.setProducts(products);
+        // Créer un nouvel objet Devis
+        Devis devis =new Devis();
+        devis.setClient(client);
+        devis.setTotalTHt(devisCreateDto.totalTHt());
+        devis.setReduction(devisCreateDto.reduction());
+        devis.setTotalTva(devisCreateDto.totalTva());
+        devis.setDate(devisCreateDto.date());
+        devis.setCassier(devisCreateDto.cassier());
+        devis.setProduitDevis(new ArrayList<>());
 
-        return devisRepository.save(devis);
-}
+        //save le devis
+        Devis saveDevis = devisRepository.save(devis);
+//        pour chaque produit de la liste selectionne par lutilisateur
+        devisCreateDto.productDevis().forEach(produitDevisDto -> {
+//            recuperer lid de chaque produit
+            UUID pdtId = produitDevisDto.getProduct().getProductId();
+            Product product = productRepository.findById(pdtId).get();
+
+//            apres avoir recupere lid de chaque produit de la liste construis le nouvel objet produit
+//            qui devient newproduitdevis et sera enregistré dans sa liste
+
+            ProduitDevis newProduitDevis = ProduitDevis.builder()
+                    .qte(produitDevisDto.getQte())
+                    .product(product)
+                    .devis(saveDevis)
+                    .build();
+//            on save le nouveau produitDevis
+            produitDevisRepository.save(newProduitDevis);
+//on lajout dans la liste de produitdevis pour la save
+            produitDevis.add(newProduitDevis);
+        });
+
+        saveDevis.setProduitDevis(produitDevis);
+
+//        on save donc le devis
+        return devisRepository.save(saveDevis);
+    };
+
+
 
 //    public List<DevisCreateDto> getAllDevisWithDetails() {
 //        List<Devis> devisList = devisRepository.findAll();

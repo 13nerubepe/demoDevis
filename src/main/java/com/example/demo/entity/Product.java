@@ -27,7 +27,6 @@ public class Product {
     private String categories;
     private Long prixUnitaire;
     private Long qteenstock;
-    private Long qte;
     private Long tva;
     private Long totalTva;
     private Long totalHT;

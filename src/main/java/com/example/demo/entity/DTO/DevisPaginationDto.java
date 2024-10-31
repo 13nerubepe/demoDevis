@@ -13,5 +13,6 @@ public record DevisPaginationDto(
         int pageNumber,
         boolean last,
         boolean first
+
 ) {
 }

@@ -43,10 +43,10 @@ public class DevisControlleur {
     public void deleteDevis(Devis devisId){}
 
     @PostMapping("/createDevis")
-    public ResponseEntity createDevis(@RequestBody DevisCreateDto devis){
+    public ResponseEntity<Map<String, String>> createDevis(@RequestBody DevisCreateDto devis){
         Devis devis1 = devisService.createDevis(devis);
         Map<String, String> response = new HashMap<>();
-        response.put("data", "devis creé");
+        response.put("data", devis1.getDevisId().toString());
         return ResponseEntity.ok(response);
     }
 //@PostMapping
