@@ -162,7 +162,6 @@ public class DevisServiceI implements DevisService {
 //
 //            combinedDtos.add(dto);
 //        }
-//
 //        return combinedDtos;
 //    }
 }
